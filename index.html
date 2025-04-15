@@ -1,0 +1,291 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <title>Iterative Self-Tuning LLMs for Enhanced Jailbreaking Capabilities</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="ADV-LLM: An iterative self-tuning approach to transform pretrained LLMs into adversarial models with enhanced jailbreak capabilities."/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="bootstrap-grid.css">
+    <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,600,400italic,600italic,300,300italic' rel='stylesheet' type='text/css'>
+    <script src="bootstrap.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style type="text/css">
+        body {
+            font-family: Arial, Helvetica;
+            font-weight: 300;
+            font-size: 17px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+		strong {
+			font-weight: bold;
+		}
+        .container {
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+        .paper-title h1 {
+            text-align: center;
+            font-size: 40px;
+            font-weight: 500;
+            padding: 1px 0;
+        }
+        .author-row-new {
+            text-align: center;
+            font-size: 26px;
+            margin-top: 10px;
+        }
+        .author-row-new a {
+            display: inline-block;
+            font-size: 20px;
+            padding: 4px;
+            text-decoration: none;
+            color: #5364cc;
+        }
+        .affiliations, .venue {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 6px;
+        }
+        hr {
+            height: 1px;
+            border: 0; 
+            border-top: 1px solid #ddd;
+            margin: 24px 0;
+        }
+        h2 {
+            font-size: 1.75em;
+            font-weight: 400;
+            margin: 16px 0px 4px 0px;
+        }
+        p {
+            line-height: 1.25em;
+            text-align: justify;
+        }
+        .caption {
+            font-size: 14px;
+            color: #565656;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .paper-btn, .example-btn {
+            display: inline-flex;
+            margin: 8px;
+            padding: 8px;
+            border: none;
+            border-radius: 2px;
+            background-color: #5364cc;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            text-decoration: none;
+            width: 100px;
+            text-align: center;
+        }
+        .paper-btn:hover, .example-btn:hover {
+            opacity: 0.85;
+        }
+        pre {
+            font-size: 14px;
+            background-color: #eee;
+            padding: 16px;
+            overflow-x: auto;
+        }
+        @media screen and (min-width: 980px){
+            body {
+                width: 980px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Title and Authors -->
+        <div class="paper-title">
+            <h1>Iterative Self-Tuning LLMs for Enhanced Jailbreaking Capabilities</h1>
+        </div>
+        <div id="authors">
+            <center>
+                <div class="author-row-new">
+                    <!-- You can update the links if you have actual webpages -->
+                    <a href="https://sunchungen.github.io/">Chung-En Sun</a>,
+                    <a href="https://www.microsoft.com/en-us/research/people/xiaodl/">Xiaodong Liu</a>,
+                    <a href="https://www.microsoft.com/en-us/research/people/weiwya/">Weiwei Yang</a>,
+                    <a href="https://lilywenglab.github.io/">Tsui-Wei Weng</a>,
+                    <a href="https://www.microsoft.com/en-us/research/people/chehao/">Hao Cheng</a>,
+                    <a href="https://aidansan.github.io/">Aidan San</a>,
+                    <a href="https://www.microsoft.com/en-us/research/people/mgalley/">Michel Galley</a>,
+                    <a href="https://www.microsoft.com/en-us/research/people/jfgao/">Jianfeng Gao</a>
+                </div>
+                <div class="affiliations">
+                    <span>University of California San Diego</span> |
+                    <span>Microsoft Research</span> |
+                    <span>University of Virginia</span>
+                </div>
+                <div class="affil-row">
+                    <div class="venue"><b>NAACL 2025</b></div>
+                </div>
+                <div class="paper-btn-parent">
+                    <!-- Replace with actual links if available -->
+                    <a class="paper-btn" href="https://arxiv.org/abs/2410.18469">
+                        <span class="material-icons"> description </span> Paper
+                    </a>
+                    <a class="paper-btn" href="https://github.com/SunChungEn/ADV-LLM">
+                        <span class="material-icons"> code </span> Code
+                    </a>
+                </div>
+            </center>
+        </div>
+        
+        <!-- Abstract Section -->
+        <section id="abstract">
+            <hr>
+            <h2>Abstract</h2>
+            <p>
+                ADV-LLM is a self-tuning method that creates adversarial language models capable of highly effective jailbreak attacks. It achieves nearly 100% attack success rates (ASR) on open-source models like Llama2 and Llama3, with strong transferability to closed-source models (99% ASR on GPT-3.5, 49% on GPT-4). Compared to prior methods, ADV-LLM is more computationally efficient and also serves as a tool for advancing safety alignment research by generating valuable adversarial datasets.
+			</p>
+        </section>
+        
+        <!-- Introduction -->
+        <section id="introduction">
+            <hr>
+            <h2>Motivation</h2>
+            <p>
+                Ensuring the safety alignment of Large Language Models (LLMs) is increasingly critical as they are deployed in real-world applications. While automatic jailbreak attacks have emerged as a way to test model robustness, existing techniques are either inefficient or ineffective against well-aligned models like Llama2 and Llama3. Moreover, these methods rely heavily on expensive optimization procedures or pre-generated datasets, limiting their scalability and real-world applicability. To address these challenges, we are motivated to develop an efficient, scalable, and highly effective method for crafting jailbreak prompts—one that can improve attack success rates with minimal computational cost and reveal deeper insights into LLM safety vulnerabilities.
+			</p>
+            <!-- Placeholder for a figure-->
+            <center>
+                <img class="card-img-top" src="assets/comparison.png" style="width:900px" alt="Figure placeholder">
+                <p class="caption"><i>Comparison of jailbreak methods.</i></p>
+            </center>
+        </section>
+        
+        <!-- Methodology -->
+        <section id="methodology">
+            <hr>
+            <h2>ADV-LLM: Iterative Self-Tuning Framework</h2>
+            <p>
+                ADV-LLM is a novel iterative self-tuning framework that transforms a standard pretrained LLM into an adversarial suffix generator capable of bypassing safety alignment. The method begins with carefully designed suffix initialization and target refinement, reducing the search space and improving the likelihood of successful jailbreaks. Then, in each iteration, ADV-LLM undergoes two phases: <strong>(1) Suffix Sampling</strong>, where the model generates candidate suffixes for a given harmful query and selects successful ones based on whether they elicit unsafe responses from a target victim model; and <strong>(2) Knowledge Updating</strong>, where the model is fine-tuned on the accumulated successful suffixes. This process gradually improves the model’s ability to generate effective adversarial suffixes with high attack success rates, strong generalization, and stealthiness—all without relying on external data or gradient information from the target model.
+			</p>
+            <!-- Placeholder for a table: Summary of ADV-LLM components -->
+            <center>
+                <img class="card-img-top" src="assets/overview.png" style="width:700px" alt="Table placeholder">
+                <p class="caption"><i>The overview of crafting ADV-LLM. The process begins with refining the target and initializing a starting suffix. ADV-LLM then iteratively generates data for self-tuning.</i></p>
+            </center>
+        </section>
+        
+        <!-- Experiments -->
+        <section id="experiments">
+            <hr>
+            <h2>Experiments and Results</h2>
+			<p>
+				We evaluate <strong>ADV-LLM</strong> on five popular open-source models—Vicuna, Guanaco, Mistral, Llama2, and Llama3—using 520 harmful queries from AdvBench. As baselines, we compare against both <strong>search-based methods</strong> (e.g., GCG, I-GCG), which iteratively optimize suffixes, and <strong>LLM-based methods</strong> like AmpleGCG, which trains a suffix generator using outputs from search-based attacks. To assess attack success, we use three complementary evaluation metrics: <strong>Template Check</strong>, which detects refusal patterns such as “I cannot” or “As an AI”; <strong>LlamaGuard Check</strong>, a safety classifier that flags unsafe content in model outputs; and the <strong>GPT-4 Check</strong>, which determines whether the response is both harmful and provides a detailed, actionable answer. A successful attack must bypass all three checks to be considered fully effective. The results are shown in the format: <strong>{Template Check} / {LlamaGuard Check} / {CPT-4 Check} %</strong>
+			</p>
+			<p>
+				<strong>Attack Success Rate.</strong> ADV-LLM significantly outperforms all baselines. With just one attempt per query (greedy decoding), it achieves higher attack success rates across all models. Using 50 attempts (group beam search), it reaches nearly 100% ASR on all open-source models.
+			</p>
+			<!-- Placeholder for a figure: Attack success rate graph -->
+            <center>
+                <img class="card-img-top" src="assets/asr_search_based.png" style="width:900px" alt="Figure placeholder">
+                <p class="caption"><i>Table 1: The ASR of ADV-LLMs compared with search-based methods. We test on the first 100 queries from AdvBench, as search-based methods are computationally costly. ADV-LLMs achieve the highest ASR.</i></p>
+            </center>
+			<center>
+                <img class="card-img-top" src="assets/asr_generation_based.png" style="width:900px" alt="Figure placeholder">
+                <p class="caption"><i>Table 2: The ASR of ADV-LLMs compared with LLM-based methods. We test on all 520 queries from AdvBench. ADV-LLMs achieve the higher ASR with both decoding mode.</i></p>
+            </center>
+			<p>
+				<strong>Transferability.</strong> We test whether ADV-LLM’s attacks extend to closed-source models like GPT-3.5 and GPT-4. Even though it is trained solely on Llama3, ADV-LLM achieves <strong>99% ASR on GPT-3.5</strong> and <strong>49% on GPT-4</strong>, indicating strong cross-model transferability—an essential property for real-world jailbreak evaluations.
+			</p>
+			<center>
+                <img class="card-img-top" src="assets/transferability.png" style="width:900px" alt="Figure placeholder">
+                <p class="caption"><i>Table 3: The transferability of ADV-LLMs. The adversarial suffixes generated by ADV-LLM transfer well to GPT series models.</i></p>
+            </center>
+			<p>
+				<strong>OOD Generalizability.</strong> To assess how well ADV-LLM handles unseen queries, we evaluate it on <em>MaliciousInstruct</em>. Despite being trained only on AdvBench, ADV-LLM achieves strong performance on this unseen set, showing that it generalizes effectively to new and diverse harmful query formats.
+			</p>
+			<center>
+                <img class="card-img-top" src="assets/generalizability.png" style="width:900px" alt="Figure placeholder">
+                <p class="caption"><i>Table 4: The generalizability of ADV-LLMs. ADV-LLMs generate adversarial suffixes with higher ASR when prompting with unseen queries.</i></p>
+            </center>
+			<p>
+				<strong>Stealthiness.</strong> To measure stealthiness, we evaluate whether the generated suffixes can evade <em>perplexity-based defenses</em>, which flag unnatural or low-fluency inputs. ADV-LLM consistently produces suffixes with lower perplexity, remaining effective even without repetition tricks.
+			</p>
+            <!-- Placeholder for a figure: Attack success rate graph -->
+            <center>
+                <img class="card-img-top" src="assets/stealthiness.png" style="width:800px" alt="Figure placeholder">
+                <p class="caption"><i>Table 5: Perplexity and ASR against perplexity defense of ADV-LLMs compared with AmpleGCGs. The suffixes generated by ADV-LLMs are more stealthy and can easily bypass the perplexity defense.</i></p>
+            </center>
+        </section>
+        
+        <!-- Conclusion -->
+        <section id="conclusion">
+            <hr>
+            <h2>Conclusion</h2>
+            <p>
+				<strong>ADV-LLM</strong> introduces a scalable and effective framework for generating jailbreak attacks by transforming pretrained LLMs through iterative self-tuning. It achieves near-perfect attack success rates on open-source models and demonstrates strong transferability to closed-source models like GPT-3.5 and GPT-4. The method is efficient, generalizes well to unseen queries, and produces fluent, stealthy suffixes that evade detection. These results highlight critical vulnerabilities in current safety alignment approaches and provide valuable tools and insights for future research on improving LLM robustness.
+			</p>
+        </section>
+        <section id="references">
+		  <hr>
+		  <h2>References</h2>
+
+		  <p>
+			<strong>[GCG]</strong> Zou et al. (2023). <a href="https://arxiv.org/abs/2307.15043" target="_blank"><em>Universal and Transferable Adversarial Attacks on Aligned Language Models</em></a>.
+		  </p>
+
+		  <p>
+			<strong>[I-GCG]</strong> Jia et al. (2024). <a href="https://arxiv.org/abs/2405.21018" target="_blank"><em>Improved Techniques for Optimization-Based Jailbreaking on Large Language Models</em></a>.
+		  </p>
+
+		  <p>
+			<strong>[AutoDAN]</strong> Liu et al. (2023). <a href="https://arxiv.org/abs/2310.04451" target="_blank"><em>AutoDAN: Generating Stealthy Jailbreak Prompts on Aligned Large Language Models</em></a>.
+		  </p>
+
+		  <p>
+			<strong>[COLD-Attack]</strong> Guo et al. (2024). <a href="https://arxiv.org/abs/2402.08679" target="_blank"><em>COLD-Attack: Jailbreaking LLMs with Stealthiness and Controllability</em></a>.
+		  </p>
+
+		  <p>
+			<strong>[BEAST]</strong> Sadasivan et al. (2024). <a href="https://arxiv.org/abs/2402.15570" target="_blank"><em>Fast Adversarial Attacks on Language Models In One GPU Minute</em></a>.
+		  </p>
+
+		  <p>
+			<strong>[AmpleGCG]</strong> Liao and Sun (2024). <a href="https://arxiv.org/abs/2404.07921" target="_blank"><em>AmpleGCG: Learning a Universal and Transferable Generative Model of Adversarial Suffixes for Jailbreaking Both Open and Closed LLMs</em></a>.
+		  </p>
+		</section>
+
+
+        <!-- Cite This Work -->
+        <section id="citation">
+            <hr>
+            <h2>Cite this Work</h2>
+            <p>
+                Chung-En Sun, Xiaodong Liu, Weiwei Yang, Tsui-Wei Weng, Hao Cheng, Aidan San, Michel Galley, and Jianfeng Gao. <b>"Iterative Self-Tuning LLMs for Enhanced Jailbreaking Capabilities."</b> <i>NAACL 2025</i>.
+            </p>
+            <pre>
+<code>
+@article{advllm,
+   title={Iterative Self-Tuning LLMs for Enhanced Jailbreaking Capabilities},
+   author={Chung-En Sun, Xiaodong Liu, Weiwei Yang, Tsui-Wei Weng, Hao Cheng, Aidan San, Michel Galley, Jianfeng Gao},
+   journal={NAACL},
+   year={2025}
+}
+</code>
+            </pre>
+        </section>
+        
+        <!-- Footer / Template Credit -->
+        <section id="footer">
+            <hr>
+            <p style="text-align:center;">
+                This webpage template was adapted from a previous template.
+                <br><a href="https://accessibility.ucsd.edu/" style="color:#5364cc"><b>Accessibility</b></a>
+            </p>
+        </section>
+    </div>
+</body>
+</html>
