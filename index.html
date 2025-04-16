@@ -54,8 +54,8 @@
             <a href="https://www.microsoft.com/en-us/research/people/jfgao/">Jianfeng Gao<sup>3</sup></a>
         </div>
         <div class="affiliations">
-            <span><sup>1</sup>University of California San Diego</span> | 
-            <span><sup>2</sup>University of Virginia</span> | 
+            <span><sup>1</sup>UC San Diego</span> ,
+            <span><sup>2</sup>UVA</span> , 
             <span><sup>3</sup>Microsoft Research</span>
         </div>
         <div class="venue"><b>NAACL 2025 (Oral)</b></div>
@@ -73,7 +73,7 @@
 <section id="abstract">
     <hr><h2>Abstract</h2>
     <p>
-        ADV-LLM is a self-tuning method that creates adversarial language models capable of highly effective jailbreak attacks. It achieves nearly 100% attack success rates (ASR) on open-source models like Llama2 and Llama3, with strong transferability to closed-source models (99% ASR on GPT-3.5, 49% on GPT-4). Compared to prior methods, ADV-LLM is more computationally efficient and also serves as a tool for advancing safety alignment research by generating valuable adversarial datasets.
+        Compared to previous state-of-the-art methods, ADV‑LLM significantly outperforms in both effectiveness and computational efficiency. Beyond attack performance, it also contributes to safety alignment research by generating high-quality adversarial datasets.
     </p>
 </section>
 
@@ -89,7 +89,7 @@
     </ul>
     <center>
         <img class="card-img-top" src="assets/comparison.png" style="width:900px" alt="Figure placeholder">
-        <p class="caption"><i>Comparison of jailbreak methods.</i></p>
+        <p class="caption"><i>TTable 1: Comparison of jailbreak methods.</i></p>
     </center>
 </section>
 
@@ -98,14 +98,14 @@
     <hr><h2>ADV-LLM: Iterative Self-Tuning Framework</h2>
 	<center>
         <img class="card-img-top" src="assets/pipeline.png" style="width:900px" alt="Overview figure">
-        <p class="caption"><i>The pipline of ADV-LLM from training to testing. It begins by designing a better starting point, followed by iterative self-tuning to progressively improve jailbreak ability. Once trained, ADV-LLM acts as an adversarial attacker that generates effective suffixes for any given harmful query.</i></p>
+        <p class="caption"><i>Figure 1: The pipline of ADV-LLM from training to testing. It begins by designing a better starting point, followed by iterative self-tuning to progressively improve jailbreak ability. Once trained, ADV-LLM acts as an adversarial attacker that generates effective suffixes for any given harmful query.</i></p>
     </center>
 	<p>
 		ADV-LLM is a novel iterative self-tuning framework that transforms a standard pretrained LLM into an adversarial suffix generator capable of bypassing safety alignment. The method begins with carefully designed starting point (<strong>suffix initialization</strong> and <strong>target refinement</strong>), reducing the search space and improving the likelihood of successful jailbreaks.</li>
 	</p>
 	<center>
         <img class="card-img-top" src="assets/suffix_init_target_refine.png" style="width:700px" alt="Overview figure">
-        <p class="caption"><i>We initialize a starting suffix and refine the target to make the jailbreaking easier.</i></p>
+        <p class="caption"><i>Figure 2: We initialize a starting suffix and refine the target to make the jailbreaking easier.</i></p>
     </center>
 	<p>
 		Once we have a better starting point. ADV-LLM iteratively undergoes two phase to fine-tunes itself:
@@ -119,7 +119,7 @@
 	</p>
     <center>
         <img class="card-img-top" src="assets/selftuning.png" style="width:700px" alt="Overview figure">
-        <p class="caption"><i>ADV-LLM iteratively generates data for self-tuning.</i></p>
+        <p class="caption"><i>Figure 3: ADV-LLM iteratively generates data for self-tuning.</i></p>
     </center>
 </section>
 
@@ -151,11 +151,11 @@
     </p>
     <center>
         <img class="card-img-top" src="assets/asr_search_based.png" style="width:900px" alt="ASR search-based">
-        <p class="caption"><i>Table 1: The ASR of ADV-LLMs compared with search-based methods.</i></p>
+        <p class="caption"><i>Table 2: The ASR of ADV-LLMs compared with search-based methods.</i></p>
     </center>
     <center>
         <img class="card-img-top" src="assets/asr_generation_based.png" style="width:900px" alt="ASR generation-based">
-        <p class="caption"><i>Table 2: The ASR of ADV-LLMs compared with LLM-based methods.</i></p>
+        <p class="caption"><i>Table 3: The ASR of ADV-LLMs compared with LLM-based methods.</i></p>
     </center>
 
     <!-- Experiment 2 -->
@@ -165,7 +165,7 @@
     </p>
     <center>
         <img class="card-img-top" src="assets/transferability.png" style="width:900px" alt="Transferability figure">
-        <p class="caption"><i>Table 3: The transferability of ADV-LLMs.</i></p>
+        <p class="caption"><i>Table 4: The transferability of ADV-LLMs.</i></p>
     </center>
 
     <!-- Experiment 3 -->
@@ -175,7 +175,7 @@
     </p>
     <center>
         <img class="card-img-top" src="assets/generalizability.png" style="width:900px" alt="Generalizability figure">
-        <p class="caption"><i>Table 4: The generalizability of ADV-LLMs.</i></p>
+        <p class="caption"><i>Table 5: The generalizability of ADV-LLMs.</i></p>
     </center>
 
     <!-- Experiment 4 -->
@@ -185,7 +185,7 @@
     </p>
     <center>
         <img class="card-img-top" src="assets/stealthiness.png" style="width:800px" alt="Stealthiness figure">
-        <p class="caption"><i>Table 5: Perplexity and ASR against perplexity defense of ADV-LLMs compared with AmpleGCGs.</i></p>
+        <p class="caption"><i>Table 6: Perplexity and ASR against perplexity defense of ADV-LLMs compared with AmpleGCGs.</i></p>
     </center>
 </section>
 
@@ -194,7 +194,7 @@
 	<p></p>
     <hr><h2>Conclusion</h2>
     <ul>
-        <li>ADV-LLM achieves <strong>≈100% ASR</strong> on Llama2 and Llama3.</li>
+        <li>ADV-LLM achieves <strong>≈100% ASR</strong> on well-aligned LLMs such as Llama2 and Llama3, outperforming existing strong attack method by more than 50%.</li>
         <li>It transfers effectively to closed-source models, reaching <strong>99% ASR</strong> on GPT-3.5 and <strong>49% ASR</strong> on GPT-4.</li>
         <li>It generalizes well to unseen datasets such as <em>MaliciousInstruct</em>.</li>
         <li>Generated suffixes have lower perplexity and successfully bypass perplexity-based defenses.</li>
