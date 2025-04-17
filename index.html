@@ -73,23 +73,22 @@
 <section id="abstract">
     <hr><h2>Abstract</h2>
     <p>
-        Compared to previous state-of-the-art methods, ADV‑LLM significantly outperforms in both effectiveness and computational efficiency. Beyond attack performance, it also contributes to safety alignment research by generating high-quality adversarial datasets.
+        ADV-LLM is a self-tuning method that creates adversarial language models capable of highly effective jailbreak attacks. It achieves nearly 100% attack success rates (ASR) on open-source models like Llama2 and Llama3, with strong transferability to closed-source models (99% ASR on GPT-3.5, 49% on GPT-4). Compared to previous state-of-the-art methods, ADV-LLM significantly outperforms in both <strong>effectiveness</strong> and <strong>computational efficiency</strong>. Beyond attack performance, it also contributes to safety alignment research by generating high-quality adversarial datasets.
     </p>
 </section>
 
 <!-- Motivation -->
 <section id="motivation">
-    <hr><h2>Motivation</h2>
+    <hr><h2>Motivation: Ensuring LLM Safety Alignment</h2>
 	<p></p>
     <ul>
-        <li>Ensuring the safety alignment of Large Language Models (LLMs) is increasingly critical as they are deployed in real-world applications.</li>
         <li>While automatic jailbreak attacks have emerged as a way to test model robustness, existing techniques are either inefficient or ineffective against well-aligned models like Llama2 and Llama3.</li>
         <li>Moreover, these methods rely heavily on expensive optimization procedures or pre-generated datasets, limiting their scalability and real-world applicability.</li>
-        <li><strong>Goal:</strong> Develop an efficient, scalable, and highly effective method for crafting jailbreak prompts—one that can improve attack success rates with minimal computational cost and reveal deeper insights into LLM safety vulnerabilities.</li>
+        <li><strong>Our Goal:</strong> Develop an <em>efficient</em>, <em>scalable</em>, and <em>highly effective</em> method for crafting jailbreak prompts—one that can improve attack success rates with minimal computational cost and reveal deeper insights into LLM safety vulnerabilities.</li>
     </ul>
     <center>
         <img class="card-img-top" src="assets/comparison.png" style="width:900px" alt="Figure placeholder">
-        <p class="caption"><i>TTable 1: Comparison of jailbreak methods.</i></p>
+        <p class="caption"><i>Table 1: Comparison of SOTA jailbreak methods.</i></p>
     </center>
 </section>
 
@@ -97,8 +96,8 @@
 <section id="methodology">
     <hr><h2>ADV-LLM: Iterative Self-Tuning Framework</h2>
 	<center>
-        <img class="card-img-top" src="assets/pipeline.png" style="width:900px" alt="Overview figure">
-        <p class="caption"><i>Figure 1: The pipline of ADV-LLM from training to testing. It begins by designing a better starting point, followed by iterative self-tuning to progressively improve jailbreak ability. Once trained, ADV-LLM acts as an adversarial attacker that generates effective suffixes for any given harmful query.</i></p>
+        <img class="card-img-top" src="assets/pipeline.png" style="width:800px" alt="Overview figure">
+        <p class="caption"><i>Figure 1: The pipline of training and deploying ADV-LLM. It begins by designing a better starting point, followed by iterative self-tuning to progressively improve jailbreak ability. Once trained, ADV-LLM acts as an adversarial attacker that generates effective suffixes for any given harmful query.</i></p>
     </center>
 	<p>
 		ADV-LLM is a novel iterative self-tuning framework that transforms a standard pretrained LLM into an adversarial suffix generator capable of bypassing safety alignment. The method begins with carefully designed starting point (<strong>suffix initialization</strong> and <strong>target refinement</strong>), reducing the search space and improving the likelihood of successful jailbreaks.</li>
@@ -131,7 +130,7 @@
     <h3>Settings</h3>
 	<p></p>
     <ul>
-        <li><strong>Dataset:</strong> 520 harmful queries from AdvBench.</li>
+        <li><strong>Dataset:</strong> 520 harmful queries from AdvBench collected by GCG attack.</li>
         <li><strong>Models:</strong> Vicuna, Guanaco, Mistral, Llama2, and Llama3.</li>
         <li><strong>Evaluation Metrics:</strong> 
             <ul>
@@ -147,8 +146,12 @@
     <!-- Experiment 1 -->
     <h3>Experiment 1 – Attack Success Rate</h3>
     <p>
-        ADV-LLM significantly outperforms all baselines. With just one attempt per query (greedy decoding), it achieves higher attack success rates across all models. Using 50 attempts (group beam search), it reaches nearly <strong>100% ASR</strong> on all open-source models.
+        ADV-LLM significantly outperforms all baselines:
     </p>
+	<ul>
+		<li>With just one attempt per query (greedy decoding), it achieves higher attack success rates across all models.</li>
+		<li>Using 50 attempts (group beam search), it reaches nearly <strong>100% ASR</strong> on all open-source models.</li>
+	</ul>
     <center>
         <img class="card-img-top" src="assets/asr_search_based.png" style="width:900px" alt="ASR search-based">
         <p class="caption"><i>Table 2: The ASR of ADV-LLMs compared with search-based methods.</i></p>
@@ -161,8 +164,11 @@
     <!-- Experiment 2 -->
     <h3>Experiment 2 – Transferability</h3>
     <p>
-        We test whether ADV-LLM’s attacks extend to closed-source models like GPT-3.5 and GPT-4. Even though it is trained solely on Llama3, ADV-LLM achieves <strong>99% ASR on GPT-3.5</strong> and <strong>49% ASR on GPT-4</strong>, indicating strong cross-model transferability—an essential property for real-world jailbreak evaluations.
+		ADV-LLM achieves strong cross-model transferability - an essential property for real-world jailbreak evaluations:
     </p>
+	<ul>
+		<li>Despite training only on Llama3, ADV-LLM achieves <strong>99% ASR on GPT-3.5</strong> and <strong>49% ASR on GPT-4</strong>.</li>
+	</ul>
     <center>
         <img class="card-img-top" src="assets/transferability.png" style="width:900px" alt="Transferability figure">
         <p class="caption"><i>Table 4: The transferability of ADV-LLMs.</i></p>
@@ -171,8 +177,11 @@
     <!-- Experiment 3 -->
     <h3>Experiment 3 – OOD Generalizability</h3>
     <p>
-        To assess how well ADV-LLM handles unseen queries, we evaluate it on <em>MaliciousInstruct</em>. Despite being trained only on AdvBench, ADV-LLM achieves strong performance on this unseen set, showing that it generalizes effectively to new and diverse harmful query formats.
+        ADV-LLM generalizes effectively to new and diverse harmful query formats:
     </p>
+	<ul>
+		<li>We evaluate ADV-LLM on <em>MaliciousInstruct</em>, a set of harmful queries not seen during training. ADV-LLM demonstrates strong generalization and maintains high performance on this unseen dataset.</li>
+	</ul>
     <center>
         <img class="card-img-top" src="assets/generalizability.png" style="width:900px" alt="Generalizability figure">
         <p class="caption"><i>Table 5: The generalizability of ADV-LLMs.</i></p>
@@ -181,8 +190,12 @@
     <!-- Experiment 4 -->
     <h3>Experiment 4 – Stealthiness</h3>
     <p>
-        To measure stealthiness, we evaluate whether the generated suffixes can evade <em>perplexity-based defenses</em>, which flag unnatural or low-fluency inputs. ADV-LLM consistently produces suffixes with lower perplexity, remaining effective even without repetition tricks.
-    </p>
+        The harmful prompts generated by ADV-LLM is hard to detect.
+	</p>
+	<ul>
+		<li>ADV-LLM consistently produces suffixes with lower perplexity, even without repetition tricks.</li>
+		<li>ADV-LLM can evade <em>perplexity-based defenses</em>, which flag unnatural or low-fluency prompts.</li>
+	</ul>   
     <center>
         <img class="card-img-top" src="assets/stealthiness.png" style="width:800px" alt="Stealthiness figure">
         <p class="caption"><i>Table 6: Perplexity and ASR against perplexity defense of ADV-LLMs compared with AmpleGCGs.</i></p>
@@ -193,13 +206,31 @@
 <section id="conclusion">
 	<p></p>
     <hr><h2>Conclusion</h2>
-    <ul>
-        <li>ADV-LLM achieves <strong>≈100% ASR</strong> on well-aligned LLMs such as Llama2 and Llama3, outperforming existing strong attack method by more than 50%.</li>
-        <li>It transfers effectively to closed-source models, reaching <strong>99% ASR</strong> on GPT-3.5 and <strong>49% ASR</strong> on GPT-4.</li>
-        <li>It generalizes well to unseen datasets such as <em>MaliciousInstruct</em>.</li>
-        <li>Generated suffixes have lower perplexity and successfully bypass perplexity-based defenses.</li>
-        <li>The framework is compute-efficient and scalable, providing a valuable tool for probing and improving LLM safety alignment.</li>
-    </ul>
+	<ul>
+		<li>ADV-LLM has following benefits:</li>
+		<ul>
+			<li>Highly Effective Jailbreak Attack</li>
+			<ul>
+				<li>Achieve <strong>≈100% ASR</strong> on well-aligned LLMs such as Llama2 and Llama3, outperforming existing strong attack method by more than 50%.</li>
+			</ul>
+			<li>Transfer effectively to closed-source models
+			<ul>
+				<li>Reach <strong>99% ASR</strong> on GPT-3.5 and <strong>49% ASR</strong> on GPT-4.</li>
+			</ul>
+			<li>Generalize well to unseen harmful queries
+			<ul>
+				<li>The performance of ADV-LLM does not drop on <em>MaliciousInstruct</em>.</li>
+			</ul>
+			<li>Strong Stealthiness
+			<ul>
+				<li>Generated suffixes have lower perplexity and successfully bypass perplexity-based defenses.</li>
+			</ul>
+			<li>Compute-efficient and scalable
+			<ul>
+				<li>Provide a valuable tool for studying LLM safety alignment.</li>
+			</ul>
+		</ul>
+	</ul>
 </section>
 
 <!-- References -->
